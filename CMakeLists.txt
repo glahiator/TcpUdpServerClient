@@ -20,12 +20,14 @@ endif()
 # Boost.Beast будет использовать std::string_view вместо boost::string_view
 add_compile_definitions(BOOST_BEAST_USE_STD_STRING_VIEW)
 
+include_directories(include)
+
 # Добавляем четыре проекта
 add_executable(TCPServer tcp_server.cpp)
 add_executable(TCPClient tcp_client.cpp)
 add_executable(UDPServer udp_server.cpp)
 add_executable(UDPClient udp_client.cpp)
-add_executable(WebServer web_server.cpp)
+add_executable(WebServer web_server.cpp src/web_server.cpp)
 
 # Просим компоновщик подключить библиотеку для поддержки потоков
 set(THREADS_PREFER_PTHREAD_FLAG ON)
