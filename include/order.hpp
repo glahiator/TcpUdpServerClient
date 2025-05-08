@@ -120,11 +120,11 @@ private:
     net::io_context& io_;
     Timer roast_timer_{io_, 1s};
     Timer marinade_timer_{io_, 2s};
-    OrderHandler handler_;
-    Logger logger_{std::to_string(id_)};
-    Hamburger hamburger_;
     int id_;
     bool onion_marinaded_ = false;
     bool delivered_ = false;
     bool with_onion_;
+    OrderHandler handler_;
+    Logger logger_{std::to_string(id_)};
+    Hamburger hamburger_;
 };
