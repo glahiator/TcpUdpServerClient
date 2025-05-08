@@ -2,12 +2,13 @@ cmake_minimum_required(VERSION 3.11)
 
 # Проект называется TCP_UDP_Practice и написан на C++
 project(TCP_UDP_Practice CXX)
-# Исходый код будет компилироваться с поддержкой стандарта С++ 20
-set(CMAKE_CXX_STANDARD 20)
 
 # Подключаем сгенерированный скрипт conanbuildinfo.cmake, созданный Conan
 # include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 include(${CMAKE_BINARY_DIR}/../conan_toolchain.cmake)
+
+# Исходый код будет компилироваться с поддержкой стандарта С++ 20
+set(CMAKE_CXX_STANDARD 20)
 
 # Ищем Boost версии 1.87
 find_package(Boost 1.87.0 REQUIRED)
@@ -28,6 +29,7 @@ add_executable(TCPClient tcp_client.cpp)
 add_executable(UDPServer udp_server.cpp)
 add_executable(UDPClient udp_client.cpp)
 add_executable(WebServer web_server.cpp src/web_server.cpp)
+add_executable(RestOrder rest_order.cpp)
 
 # Просим компоновщик подключить библиотеку для поддержки потоков
 set(THREADS_PREFER_PTHREAD_FLAG ON)
