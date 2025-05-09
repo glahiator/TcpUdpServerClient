@@ -1,6 +1,5 @@
 #include "web_server.hpp"
 
-#include <boost/beast.hpp>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -8,13 +7,6 @@
 using namespace std::literals;
 namespace net = boost::asio;
 using net::ip::tcp;
-
-namespace beast = boost::beast;
-namespace http = beast::http;
-// Запрос, тело которого представлено в виде строки
-using StringRequest = http::request<http::string_body>;
-// Ответ, тело которого представлено в виде строки
-using StringResponse = http::response<http::string_body>;
 
 
 // Структура ContentType задаёт область видимости для констант,
@@ -39,16 +31,6 @@ namespace {
         response.keep_alive(keep_alive);
         return response;
     }
-
-    StringResponse HandleRequest(StringRequest&& req) {
-        const auto text_response = [&req](http::status status, std::string_view text) {
-            return MakeStringResponse(status, text, req.version(), req.keep_alive());
-        };
-
-        // Здесь можно обработать запрос и сформировать ответ, но пока всегда отвечаем: Hello
-        return text_response(http::status::ok, "<strong>Hello</strong>"sv);
-    }
-
 
     std::optional<StringRequest> ReadRequest(tcp::socket& socket, beast::flat_buffer& buffer) {
         beast::error_code ec;
@@ -102,4 +84,13 @@ void HandleConnection(boost::asio::ip::tcp::socket& socket) {
     beast::error_code ec;
     // Запрещаем дальнейшую отправку данных через сокет
     socket.shutdown(tcp::socket::shutdown_send, ec);
+}
+
+StringResponse HandleRequest(StringRequest&& req) {
+    const auto text_response = [&req](http::status status, std::string_view text) {
+        return MakeStringResponse(status, text, req.version(), req.keep_alive());
+    };
+
+    // Здесь можно обработать запрос и сформировать ответ, но пока всегда отвечаем: Hello
+    return text_response(http::status::ok, "<strong>Hello</strong>"sv);
 }

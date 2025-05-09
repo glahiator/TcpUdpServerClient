@@ -31,6 +31,7 @@ add_executable(UDPClient udp_client.cpp)
 add_executable(WebServer web_server.cpp src/web_server.cpp)
 add_executable(RestOrder rest_order.cpp)
 add_executable(TestAsync test_async.cpp)
+add_executable(WebServerAsync web_server_async.cpp src/web_server.cpp)
 
 # Просим компоновщик подключить библиотеку для поддержки потоков
 set(THREADS_PREFER_PTHREAD_FLAG ON)
@@ -41,3 +42,4 @@ target_link_libraries(UDPServer PRIVATE Threads::Threads)
 target_link_libraries(UDPClient PRIVATE Threads::Threads)
 target_link_libraries(WebServer PRIVATE Threads::Threads)
 target_link_libraries(WebServer PRIVATE Threads::Threads)
+target_link_libraries(WebServerAsync PRIVATE Threads::Threads)
